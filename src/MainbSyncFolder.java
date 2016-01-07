@@ -28,23 +28,35 @@ public class MainbSyncFolder {
         System.out.println("Welcome to bSyncFolder!");
         System.out.println();
 
-//        Main folder path - the folder which will be original with original files to be synced with
-        System.out.println("Please specify main folder path:");
-        mainPath = new File(reader.readLine());
-
-        while (!mainPath.isDirectory()) {
-            System.out.println("Something is wrong in path you specified. Please specify the correct PATH TO DIRECTORY:");
+        if (args.length == 0) {
+            //        Main folder path - the folder which will be original with original files to be synced with
+            System.out.println("Please specify main folder path:");
             mainPath = new File(reader.readLine());
-        }
+
+            while (!mainPath.isDirectory()) {
+                System.out.println("Something is wrong in path you specified. Please specify the correct PATH TO DIRECTORY:");
+                mainPath = new File(reader.readLine());
+            }
 
 //        Target folder path - here will appear all files from main folder, also if the files which are in target
 //        folder and doesn't exist in main will be deleted
-        System.out.println("Please specify target folder path:");
-        targetPath = new File(reader.readLine());
-
-        while (!targetPath.isDirectory()) {
-            System.out.println("Something is wrong in path you specified. Please specify the correct PATH TO DIRECTORY:");
+            System.out.println("Please specify target folder path:");
             targetPath = new File(reader.readLine());
+
+            while (!targetPath.isDirectory()) {
+                System.out.println("Something is wrong in path you specified. Please specify the correct PATH TO DIRECTORY:");
+                targetPath = new File(reader.readLine());
+            }
+        }
+        else if (args.length == 2) {
+            mainPath = new File(args[0]);
+            if (!mainPath.isDirectory()) argumentsError();
+
+            targetPath = new File(args[1]);
+            if (!targetPath.isDirectory()) argumentsError();
+        }
+        else {
+            argumentsError();
         }
 
         sync();
@@ -113,5 +125,11 @@ public class MainbSyncFolder {
         System.out.println();
 
         System.out.println("All files are synchronized. Exiting... ");
+    }
+
+    private static void argumentsError() {
+        System.out.println("Invalid arguments. The correct is \"bSyncFolder.jar path_to_main_directory path_to_target_directory\"");
+        System.out.println("Exiting...");
+        System.exit(0);
     }
 }
