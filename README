@@ -1,0 +1,24 @@
+|-----------------------------------------------------------------|
+|                           bSyncFolder                           |
+|-----------------------------------------------------------------|
+|                                                                 |
+| bSyncFolder is a small console app to sync your data.           |
+|                                                                 |
+| It is made mostly for users who want to synchronize             |
+| their music stored on PC to another devices like:               |
+|     - USB flash-drives                                          |
+|     - Mobile phones                                             |
+|                                                                 |
+| How it is working?                                              |
+|     - it scans your specified main (stored on your PC) folder   |
+| and target (i.e. USB flash drive) for differences. If the main  |
+| folder has files that doesn't exist in terget folder id copies  |
+| them to target directory. If target dir has files that are not  |
+| exist in main they will be deleted from target dir.             |
+|                                                                 |
+| The principle is simple:                                        |
+|     - you can manage all the music from PC. Delete old or not   |
+| used files and add new ones. With nSyncFolder they will appear  |
+| in target directory.                                            |
+|                                                                 |
+|-----------------------------------------------------------------|
