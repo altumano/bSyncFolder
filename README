@@ -12,13 +12,13 @@
 | How it is working?                                              |
 |     - it scans your specified main (stored on your PC) folder   |
 | and target (i.e. USB flash drive) for differences. If the main  |
-| folder has files that doesn't exist in terget folder id copies  |
+| folder has files that doesn't exist in target folder it copies  |
 | them to target directory. If target dir has files that are not  |
 | exist in main they will be deleted from target dir.             |
 |                                                                 |
 | The principle is simple:                                        |
 |     - you can manage all the music from PC. Delete old or not   |
-| used files and add new ones. With nSyncFolder they will appear  |
-| in target directory.                                            |
+| used files and add new ones. With bSyncFolder app they will     |
+| appear in target directory.                                     |
 |                                                                 |
 |-----------------------------------------------------------------|
