@@ -18,6 +18,7 @@ import java.util.Scanner;
  *  - if %Target has files that not exist in %Main deletes them
  */
 public class MainbSyncFolder {
+    // Why fields are needed? Those could be parameters in sync() method instead. 
     private static File mainPath;
     private static File targetPath;
 
@@ -35,6 +36,7 @@ public class MainbSyncFolder {
 
             while (!mainPath.isDirectory()) {
                 System.out.println("Something is wrong in path you specified. Please specify the correct PATH TO DIRECTORY:");
+                // duplicated code line! Use do-while loop instead 
                 mainPath = new File(reader.readLine());
             }
 
@@ -45,6 +47,7 @@ public class MainbSyncFolder {
 
             while (!targetPath.isDirectory()) {
                 System.out.println("Something is wrong in path you specified. Please specify the correct PATH TO DIRECTORY:");
+                // Duplicated code line. Maybe better to use do-while loop instead. 
                 targetPath = new File(reader.readLine());
             }
         }
@@ -65,18 +68,20 @@ public class MainbSyncFolder {
         reader.close();
     }
 
-    private static void sync() throws IOException { // ToDo: to implement IOException
+    private static void sync() throws IOException { // ToDo: to implement IOException (Why? There is nothing to do here)
         ArrayList<String> mainFiles = new ArrayList<>(Arrays.asList(mainPath.list()));
         ArrayList<String> targetFiles = new ArrayList<>(Arrays.asList(targetPath.list()));
         ArrayList<String> filesToBeAdded = new ArrayList<>();
 
         for (String file:mainFiles) {
+            // Both contains() and remove() scan all the list every time. Use better collection class here, for example HashSet. 
             if (targetFiles.contains(file)) targetFiles.remove(file);
             else filesToBeAdded.add(file);
         }
 
         if (targetFiles.isEmpty() && filesToBeAdded.isEmpty()) {
             System.out.println("There is nothing to sync. All files are synced. Exiting... ");
+            // use return! otherwise reader.close() will not be executed 
             System.exit(0);
         }
 
@@ -97,28 +102,34 @@ public class MainbSyncFolder {
         System.out.println("Are you sure you want to continue? (y/n)");
         String answer = String.valueOf(new Scanner(System.in).next());
 
+        // can write !answer.equalsIgnoreCase("n") && !answer.equalsIgnoreCase("y")
         while (!(answer.equals("n") || answer.equals("N") || answer.equals("y") || answer.equals("Y"))) {
             System.out.println("Incorrect answer. Please type correct letter: ");
             answer = String.valueOf(new Scanner(System.in).next());
         }
 
+        // can write answer.equalsIgnoreCase("n")
         if (answer.equals("n") || answer.equals("N")) {
             System.out.println("Cancelled by user. Exiting... ");
+            // use return! otherwise reader.close() will not be executed 
             System.exit(0);
         }
 
 //        Checking for path separator.
+        // Just use File.pathSeparator
         String pathSeparator;
         if (targetPath.getAbsolutePath().startsWith("/")) pathSeparator = "/";
         else pathSeparator = "\\";
 
 //        Deleting files
         for (String fileName : targetFiles) {
+            // can write new File(targetPath, fileName).delete();
             Files.delete(Paths.get(targetPath.getPath() + pathSeparator + fileName));
         }
 
 //        Copying files
         for (String fileName : filesToBeAdded) {
+            // can write Files.copy(new File(mainPath, fileName).toPath(), new File(targetPath, fileName).toPath());
             Files.copy(Paths.get(mainPath.getPath() + pathSeparator + fileName), Paths.get(targetPath.getPath() + pathSeparator + fileName));
         }
 
